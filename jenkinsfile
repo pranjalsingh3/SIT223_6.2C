@@ -1,6 +1,10 @@
 pipeline {
     agent any
-    
+    environment {
+        DIRECTORY_PATH= "PATH"
+        TESTING_ENVIRONMENT= "Jenkins Testing"
+        PRODUCTION_ENVIRONMENT= "Pranjal Singh"
+    }
     stages{
         stage('Build') {
             steps {
@@ -38,3 +42,4 @@ pipeline {
             }
         }
     }
+}
