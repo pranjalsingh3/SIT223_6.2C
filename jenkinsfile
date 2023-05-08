@@ -1,10 +1,6 @@
 pipeline {
     agent any
-    environment {
-        DIRECTORY_PATH= "PATH"
-        TESTING_ENVIRONMENT= "Jenkins Testing"
-        PRODUCTION_ENVIRONMENT= "Pranjal Singh"
-    }
+   
     stages{
         stage('Build') {
             steps {
@@ -28,6 +24,7 @@ pipeline {
             }
         }
         stage('Deploy to staging') {
+            steps {
             echo 'deploy the application to a staging server'
             }
         }
@@ -38,7 +35,8 @@ pipeline {
         }
         stage('Deploy to Production') {
             steps {
-                echo "eploy the application to a production server (e.g., AWS EC2 instance)."
+                echo "deploy the application to a production server (e.g., AWS EC2 instance)."
             }
         }
     }
+}
