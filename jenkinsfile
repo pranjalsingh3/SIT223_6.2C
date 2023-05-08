@@ -1,43 +1,40 @@
 pipeline {
     agent any
-    environment {
-        DIRECTORY_PATH= "PATH"
-        TESTING_ENVIRONMENT= "Jenkins Testing"
-        PRODUCTION_ENVIRONMENT= "Pranjal Singh"
-    }
+    
     stages{
         stage('Build') {
             steps {
-                echo 'fetch the source code from the directory path specified by the environment variable'
-                echo 'compile the code and generate any necessary artifacts'
+                echo 'Build the code using a build automation tool to compile and package your code. You need to specify at least one build automation tool e.g., Maven.'
             }
         }
-        stage('Test') {
+        stage('Unit and Integration Tests') { 
             steps {
                 echo 'unit tests'
                 echo 'integration tests'
             }
         }
-        stage('Code Quality Check') {
+        stage('Code Analysis') {
             steps {
-                echo 'Check the quality of code'
+                echo 'Research and select a tool to analyse your code using Jenkins.'
             }
         }
-        stage('Deploy') {
+        stage('Security Scan') {
             steps {
-                echo 'deploy the application to a testing environment specified by the environment variable'
+                echo 'perform a security scan on the code using a tool to identify any vulnerabilities. Research and select a tool to scan your code.'
             }
         }
-        stage('Approval') {
+        stage('Deploy to staging') {
+            echo 'deploy the application to a staging server'
+            }
+        }
+        stage('Integration Tests on Staging') {
             steps {
-                timeout(time: 10, unit: "SECONDS") {
-	                    input message: 'Manually approve?', ok: 'Yes'
-	                }
+                echo "run integration tests on the staging environment to ensure the application functions as expected in a production-like environment."
             }
         }
         stage('Deploy to Production') {
             steps {
-                echo "Deployed the code to $PRODUCTION_ENVIRONMENT using $TESTING_ENVIRONMENT"
+                echo "eploy the application to a production server (e.g., AWS EC2 instance)."
             }
         }
     }
