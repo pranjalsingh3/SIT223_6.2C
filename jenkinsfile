@@ -72,7 +72,7 @@ pipeline {
             emailext (
                 subject: "Pipeline Failure",
                 body: "The pipeline failed. Please investigate.",
-                to: "your-email@example.com",
+                to: "pranjalsinghofficial@example.com",
                 attachLog: true,
                 compressLog: true
             )
