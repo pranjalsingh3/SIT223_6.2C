@@ -18,7 +18,7 @@ pipeline {
         }
         stage('Code Analysis') {
             steps {
-                // Integrate a code analysis tool
+                // Integrate a code analysis too
                 // Replace 'code-analysis-tool' with the actual tool command
                 sh 'code-analysis-tool'
             }
