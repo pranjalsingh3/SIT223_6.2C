@@ -55,7 +55,6 @@ pipeline {
     
     post {
         always {
-            // Archive logs as attachments
             archiveArtifacts artifacts: 'logs/*.log'
         }
         success {
