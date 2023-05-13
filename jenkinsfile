@@ -1,12 +1,9 @@
 pipeline {
     agent any
-    tools {
-        maven 'null'
-    }
     stages{
         stage('Build') {
             steps {
-            sh 'mvn clean package'
+            echo 'step1'
             }
         }
         stage('Unit and Integration Tests') { 
