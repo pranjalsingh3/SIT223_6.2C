@@ -62,7 +62,7 @@ pipeline {
             emailext (
                 subject: "Pipeline Success",
                 body: "The pipeline completed successfully.",
-                to: "your-email@example.com",
+                to: "pranjalsinghofficial@gmail.com",
                 attachLog: true,
                 compressLog: true
             )
@@ -72,7 +72,7 @@ pipeline {
             emailext (
                 subject: "Pipeline Failure",
                 body: "The pipeline failed. Please investigate.",
-                to: "your-email@example.com",
+                to: "pranjalsinghofficial@gmail.com",
                 attachLog: true,
                 compressLog: true
             )
