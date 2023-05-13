@@ -1,41 +1,82 @@
 pipeline {
     agent any
-    stages{
+
+    stages {
         stage('Build') {
             steps {
-            echo 'step1'
+                // Use Maven to build the code
+                sh 'mvn clean package'
             }
         }
-        stage('Unit and Integration Tests') { 
+        stage('Unit and Integration Tests') {
             steps {
-                echo 'unit tests'
-                echo 'integration tests'
+                // Use JUnit for unit tests
+                // Use a suitable tool for integration tests
+                sh 'mvn test'
+                // Run integration tests using a tool of your choice
             }
         }
         stage('Code Analysis') {
             steps {
-                echo 'Research and select a tool to analyse your code using Jenkins.'
+                // Integrate a code analysis tool
+                // Replace 'code-analysis-tool' with the actual tool command
+                sh 'code-analysis-tool'
             }
         }
         stage('Security Scan') {
             steps {
-                echo 'perform a security scan on the code using a tool to identify any vulnerabilities. Research and select a tool to scan your code.'
+                // Integrate a security scanning tool
+                // Replace 'security-scan-tool' with the actual tool command
+                sh 'security-scan-tool'
             }
         }
-        stage('Deploy to staging') {
+        stage('Deploy to Staging') {
             steps {
-            echo 'deploy the application to a staging server'
+                // Deploy the application to a staging server
+                // Replace 'deploy-command' with the actual deployment command
+                sh 'deploy-command'
             }
         }
         stage('Integration Tests on Staging') {
             steps {
-                echo "run integration tests on the staging environment to ensure the application functions as expected in a production-like environment."
+                // Run integration tests on the staging environment
+                // Use a suitable tool for integration tests
+                sh 'mvn test'
             }
         }
         stage('Deploy to Production') {
             steps {
-                echo "deploy the application to a production server (e.g., AWS EC2 instance)."
+                // Deploy the application to a production server
+                // Replace 'deploy-command' with the actual deployment command
+                sh 'deploy-command'
             }
+        }
+    }
+    
+    post {
+        always {
+            // Archive logs as attachments
+            archiveArtifacts artifacts: 'logs/*.log'
+        }
+        success {
+            // Send success notification email
+            emailext (
+                subject: "Pipeline Success",
+                body: "The pipeline completed successfully.",
+                to: "your-email@example.com",
+                attachLog: true,
+                compressLog: true
+            )
+        }
+        failure {
+            // Send failure notification email
+            emailext (
+                subject: "Pipeline Failure",
+                body: "The pipeline failed. Please investigate.",
+                to: "your-email@example.com",
+                attachLog: true,
+                compressLog: true
+            )
         }
     }
 }
