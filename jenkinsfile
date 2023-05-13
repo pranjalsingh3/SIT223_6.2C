@@ -1,60 +1,60 @@
 pipeline {
     agent any
-
+    tools {
+        maven 'maven-3.6.3'
+    }
     stages {
         stage('Build') {
             steps {
-                // Use Maven to build the code
+                // Use Maven as the build automation tool
                 sh 'mvn clean package'
             }
         }
         stage('Unit and Integration Tests') {
             steps {
                 // Use JUnit for unit tests
-                // Use a suitable tool for integration tests
                 sh 'mvn test'
-                // Run integration tests using a tool of your choice
+                // Use a suitable tool like Selenium, Cucumber, or Postman for integration tests
+                sh 'run-integration-tests-command'
             }
         }
         stage('Code Analysis') {
             steps {
-                // Integrate a code analysis too
-                // Replace 'code-analysis-tool' with the actual tool command
-                sh 'code-analysis-tool'
+                // Use SonarQube for code analysis
+                withSonarQubeEnv('SonarQube Server') {
+                    sh 'mvn sonar:sonar'
+                }
             }
         }
         stage('Security Scan') {
             steps {
-                // Integrate a security scanning tool
-                // Replace 'security-scan-tool' with the actual tool command
-                sh 'security-scan-tool'
+                // Use OWASP ZAP for security scanning
+                sh 'zap-cli --spider --scan --ajax-spider -t http://your-app-url'
             }
         }
         stage('Deploy to Staging') {
             steps {
-                // Deploy the application to a staging server
-                // Replace 'deploy-command' with the actual deployment command
-                sh 'deploy-command'
+                // Use AWS CLI or a deployment tool like Ansible or Docker to deploy to a staging server
+                sh 'aws deploy your-staging-config'
             }
         }
         stage('Integration Tests on Staging') {
             steps {
                 // Run integration tests on the staging environment
-                // Use a suitable tool for integration tests
-                sh 'mvn test'
+                sh 'run-staging-integration-tests-command'
             }
         }
         stage('Deploy to Production') {
             steps {
-                // Deploy the application to a production server
-                // Replace 'deploy-command' with the actual deployment command
-                sh 'deploy-command'
+                // Use AWS CLI or a deployment tool like Ansible or Docker to deploy to a production server
+                sh 'aws deploy your-production-config'
             }
         }
     }
     
     post {
         always {
+            // Archive logs as attachments
             archiveArtifacts artifacts: 'logs/*.log'
         }
         success {
@@ -62,7 +62,7 @@ pipeline {
             emailext (
                 subject: "Pipeline Success",
                 body: "The pipeline completed successfully.",
-                to: "pranjalsinghofficial@gmail.com",
+                to: "your-email@example.com",
                 attachLog: true,
                 compressLog: true
             )
@@ -72,7 +72,7 @@ pipeline {
             emailext (
                 subject: "Pipeline Failure",
                 body: "The pipeline failed. Please investigate.",
-                to: "pranjalsinghofficial@example.com",
+                to: "your-email@example.com",
                 attachLog: true,
                 compressLog: true
             )
